@@ -4,12 +4,13 @@
     <title>Blog</title>
 </head>
 <body>
-    <ul>
-        <li><a href="/blog">Blog Home</a></li>
-        <li><a href="/register">Register</a></li>
-        <li><a href="/login">Login</a></li>
+    
+    <ul style="list-style-type:none">
+        <li><a href="/">Blog Home</a></li>
         <li><a href="/add">Add</a></li>
     </ul>
+    <h1>{{page_title}}</h1>
+    <hr>
     {% block content%}
     {% endblock %}
 </body>

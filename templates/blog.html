@@ -1,5 +1,18 @@
 {%extends "base.html"%}
 
 {% block content%}
-<h1>Home</h1>
+    
+    {% if posts| length == 0 %}
+    <p>There are no blog posts to show.</p>
+    {%else%}
+        <ul>
+            {%for post in posts%}
+            <li>
+                <h2><a href="/blog/{{post.id}}">{{post.title}}</a></h2><br>
+                {{post.body}}
+            </li>
+            {%endfor%}
+        </ul>
+
+    {%endif%}
 {% endblock %}
