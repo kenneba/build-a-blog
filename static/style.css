@@ -1,0 +1,11 @@
+body{
+    background-color:lightblue;
+}
+
+a:hover{
+    color:yellow;
+}
+
+li{
+    color: darkblue;
+}

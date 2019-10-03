@@ -25,11 +25,15 @@ class Blog(db.Model):
 def index():
 
     posts = Blog.query.all()
-    #
+    
+    if request.method=='GET' and Blog.id !=0:
+        return render_template('blog.html', posts=posts, page_title="Home", ids=id)
+    elif request.method=='GET' and Blog.id ==0:
+        return "<h1>I'm empty blog id</h1>"
+    else:
+        return "<h1>I'm a post</h1>"
 
-    return render_template('blog.html', posts=posts, page_title="Home", ids=id)
-
-@app.route('/blog/<string:id>', methods=['POST', 'GET'])
+@app.route('/blog?=<string:id>', methods=['POST', 'GET'])
 def individ(id):
     posts = Blog.query.all()
     blog_id = Blog.query.filter_by(id=id).first()
@@ -37,6 +41,7 @@ def individ(id):
 
 @app.route('/add', methods=['POST', 'GET'])
 def add():
+    posts = Blog.query.all()
     
     if request.method == 'POST':
         new_title = request.form['title']
@@ -45,11 +50,15 @@ def add():
         db.session.add(new_post)
         db.session.commit()
 
-        return redirect ("/blog?id={{Blog.id}}")
+        return render_template('/blog.html', posts=posts, page_title="Home", ids=id)
+    
     else:
+        form_value = request.args.get('id')
+        # blog_id = Blog.query.filter_by(id=id).first()
         return render_template('newpost.html', page_title="Add a New Post")
 
-    return render_template('newpost.html', page_title="Add a New Post")
+    # return render_template('newpost.html', page_title="Add a New Post")
+
 
 if __name__ == '__main__':
     app.run()
