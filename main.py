@@ -33,31 +33,32 @@ def index():
     else:
         return "<h1>I'm a post</h1>"
 
-@app.route('/blog?=<string:id>', methods=['POST', 'GET'])
+@app.route('/blog/<string:id>', methods=['POST', 'GET'])
 def individ(id):
     posts = Blog.query.all()
+    new_id = Blog.id
     blog_id = Blog.query.filter_by(id=id).first()
     return render_template('entry.html', posts=posts, blog_id=blog_id)
 
 @app.route('/add', methods=['POST', 'GET'])
 def add():
     posts = Blog.query.all()
-    
+    form_value = request.args.get('id')
+
+
     if request.method == 'POST':
         new_title = request.form['title']
         new_body = request.form['body']
         new_post = Blog(new_title, new_body)
         db.session.add(new_post)
         db.session.commit()
+        new_id = new_post
+        return render_template('individ_entry.html', posts=posts, new_id=new_id)
 
-        return render_template('/blog.html', posts=posts, page_title="Home", ids=id)
-    
+        if new_id != "Null":
+            return render_template('entry.html', posts=posts, id=new_id)
     else:
-        form_value = request.args.get('id')
-        # blog_id = Blog.query.filter_by(id=id).first()
         return render_template('newpost.html', page_title="Add a New Post")
-
-    # return render_template('newpost.html', page_title="Add a New Post")
 
 
 if __name__ == '__main__':
