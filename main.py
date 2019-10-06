@@ -58,7 +58,7 @@ def add():
         if new_id != "Null":
             return render_template('entry.html', posts=posts, id=new_id)
     else:
-        return render_template('newpost.html', page_title="Add a New Post")
+        return render_template('newpost.html', page_title="Add a New Entry")
 
 
 if __name__ == '__main__':
