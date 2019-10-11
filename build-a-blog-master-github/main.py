@@ -7,6 +7,7 @@ app = Flask(__name__)
 app.config['DEBUG']= True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://build-a-blog:lc101@localhost:8889/build-a-blog'
 app.config['SQLALCHEMY_ECHO'] = True
+app.secret_key = 'ShhItsasecret'
 
 db = SQLAlchemy(app)
 
@@ -52,11 +53,13 @@ def add():
 
         if new_title == "":
             new_body = request.form['body']
-            return render_template('newpost.html', page_title="Add a New Entry", post=new_body, title_error="Please enter a title")
+            flash("Please enter a title")
+            return render_template('newpost.html', page_title="Add a New Entry", post=new_body)
 
         if new_body == "":
             new_title = request.form['title']
-            return render_template('newpost.html', page_title="Add a New Entry", title=new_title, body_error="Please enter a content")   
+            flash("Please enter a body for the message")
+            return render_template('newpost.html', page_title="Add a New Entry", title=new_title)   
         if new_title != "" and new_body != "":
             db.session.add(new_post)
             db.session.commit()

@@ -1,15 +1,23 @@
 {%extends "base.html"%}
 
 {% block content%}
+
+{%with messages = get_flashed_messages() %}
+    <ul>
+    {%for message in messages%}
+    <li class="errormessage">{{message}}</li>
+    {% endfor %}
+    </ul>
+{% endwith %}
 <form method="POST">
 <table>
     <tr>
     <td><label for="title">Title: </label></td>
-    <td><input type="text" name="title" value="{{title}}"/>{{title_error}}
+    <td><input type="text" name="title" value="{{title}}"/>
     </tr>
     <tr>
     <td><label for="body">Enter some text: </label></td>
-    <td><textarea name="body" rows="5" cols="20" value="{{post}}">{{post}}</textarea>{{body_error}}<br></td>
+    <td><textarea name="body" rows="5" cols="20" value="{{post}}">{{post}}</textarea><br></td>
     </tr>
     <tr>
     <td><input type="submit" value="Submit"></td>
