@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.config['DEBUG']= True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://build-a-blog:lc101@localhost:8889/build-a-blog'
 app.config['SQLALCHEMY_ECHO'] = True
-app.secret_key = 'ShhItsasecret'
+app.secret_key = 'ShhhhhItsasecret'
 
 db = SQLAlchemy(app)
 
